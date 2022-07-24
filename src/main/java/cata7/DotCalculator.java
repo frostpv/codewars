@@ -1,10 +1,12 @@
 package cata7;
 
 public class DotCalculator {
-    private static final String ADDITION = "[+]";
-    private static final String SUBTRACTION = "-";
-    private static final String MULTIPLICATION = "[*]";
-    private static final String DIVISION = "//";
+    //private static final String ADDI = "*";
+    private static final String ADDI_REGEX = "[*]";
+    private static final String SUBT = "-";
+    //private static final String MULT = "*";
+    private static final String MULT_REGEX = "[*]";
+    private static final String DIVI = "//";
 
     public static String calc(String txt){
         String delimiter = findDelimiter(txt);
@@ -23,45 +25,46 @@ public class DotCalculator {
     }
 
     private static int resultNumber(String delimiter, String txt){
-        if (ADDITION.equals(delimiter)){
-            return txt.split(ADDITION)[0].trim().length() + txt.split(ADDITION)[1].trim().length();
+        int left = 0;
+        int right = 1;
+
+       // if (ADDI.equals(delimiter)){
+        //    return txt.split(ADDI)[left].trim().length() + txt.split(ADDI)[right].trim().length();
+       // }
+
+        if (SUBT.equals(delimiter)){
+            return txt.split(SUBT)[left].trim().length() - txt.split(SUBT)[right].trim().length();
         }
 
-        if (SUBTRACTION.equals(delimiter)){
-            return txt.split(SUBTRACTION)[0].trim().length() - txt.split(SUBTRACTION)[1].trim().length();
-        }
+       // if (MULT.equals(delimiter)){
+        //    return txt.split(MULT)[left].trim().length() * txt.split(MULT)[right].trim().length();
+       // }
 
-        if (MULTIPLICATION.equals(delimiter)){
-            return txt.split(MULTIPLICATION)[0].trim().length() * txt.split(MULTIPLICATION)[1].trim().length();
-        }
-
-        if (DIVISION.equals(delimiter)){
-            int length = txt.split(DIVISION)[1].trim().length();
-            if(length == 0) {
-                return 0;
-            }
-
-            return txt.split(DIVISION)[0].trim().length() / length;
+        if (DIVI.equals(delimiter)){
+            int length = txt.split(DIVI)[right].trim().length();
+            return length == 0
+                    ? 0
+                    : txt.split(DIVI)[left].trim().length() / length;
         }
 
         return 0;
     }
 
     private static String findDelimiter(String txt) {
-        if (txt.contains(ADDITION)) {
-            return ADDITION;
+        if (txt.contains(ADDI_REGEX)) {
+            //return ADDI;
         }
 
-        if (txt.contains(SUBTRACTION)) {
-            return SUBTRACTION;
+        if (txt.contains(SUBT)) {
+            return SUBT;
         }
 
-        if (txt.contains(MULTIPLICATION)) {
-            return MULTIPLICATION;
+        if (txt.contains(MULT_REGEX)) {
+           // return MULT;
         }
 
-        if (txt.contains(DIVISION)) {
-            return DIVISION;
+        if (txt.contains(DIVI)) {
+            return DIVI;
         }
 
         return "";
